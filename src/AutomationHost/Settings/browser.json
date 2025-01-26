@@ -1,0 +1,14 @@
+{
+    "platform": "chrome",
+    "arguments": [
+        "--headless",
+        "--disable-extensions", 
+        "--no-sandbox", 
+        "--start-maximized", 
+        "--window-size=1920,1080"
+    ],
+    "timeouts": {
+        "implicit": "00;00:00",
+        "fluent": "00:00:30"
+    }
+}
