@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>Demoqa</RootNamespace>
+        <TargetFramework>net8.0</TargetFramework>
+        <Configurations>local;development;test</Configurations>
+        <Platforms>AnyCPU</Platforms>
+        <!--
+        To enable the Microsoft Testing Platform 'dotnet test' experience, add property:
+          <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+    
+        To enable the Microsoft Testing Platform native command line experience, add property:
+          <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+    
+        For more information on Microsoft Testing Platform support in xUnit.net, please visit:
+          https://xunit.net/docs/getting-started/v3/microsoft-testing-platform
+        -->
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0"/>
+        <PackageReference Include="xunit.v3" Version="1.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\AutomationHost\AutomationHost.csproj" />
+        
+      <Content Include="Actors/*.actor.json" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Commands\" />
+    </ItemGroup>
+
+</Project>
