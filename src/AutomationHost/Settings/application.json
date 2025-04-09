@@ -1,9 +1,14 @@
 {
-    "web": {
-        "url": ""
-    },
-    
-    "database": {
-        "": ""
-    }
+  "Serilog": {
+    "MinimumLevel": "Information",
+    "WriteTo": [
+      {
+        "Name": "Console",
+        "Args": {
+          "outputTemplate": "{Timestamp:HH:mm:ss} [{Level}] {Message}{NewLine}{Exception}"
+        }
+      }
+    ],
+    "Enrich": ["FromLogContext"]
+  }
 }

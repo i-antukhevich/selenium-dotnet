@@ -1,13 +1,19 @@
 using System.Reflection;
+using Serilog;
 
 namespace AutomationHost.Utils.Validators;
 
 public static class Validate
 {
-    public static void CommandArgs(Delegate command, object[] args)
+    public static object? CommandArgsAndReturn(Delegate command, object[] args, ILogger logger)
     {
         // Get method parameters
         ParameterInfo[] parameters = command.Method.GetParameters();
+
+        if (parameters.Any(parameter => parameter.ParameterType == typeof(ILogger)))
+        {
+	        args = args.Concat([logger]).ToArray();
+        }
 
         if (parameters.Length != args.Length)
         {
@@ -21,6 +27,16 @@ public static class Validate
             {
                 throw new ArgumentException($"Argument {i + 1} is of incorrect type. Expected {parameters[i].ParameterType}, but got {args[i].GetType()}.");
             }
+        }
+
+        try
+        {
+	        return command.DynamicInvoke(args);
+        }
+        catch (Exception e)
+        {
+	        logger.Error(e.InnerException!.Message);
+	        throw;
         }
     }
 }
